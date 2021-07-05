@@ -1,0 +1,222 @@
+---
+title: "resolución_práctica1"
+author: "Rocío Mallqui"
+date: "4/7/2021"
+output: html_document
+---
+## Ejercicio 1
+
+ ¿Qué cantidad de dinero sobra al repartir 10000$ entre 3 personas?
+ 
+```{r}
+10000%%3
+
+```
+## Ejercicio 2 
+
+¿Es el numero 4560 divisible por 3? 
+
+```{r}
+x<- 4560
+x%%3==0  
+```
+
+## Ejercicio 3
+
+Construya un vector con los numeros enteros del 2 al 87. ¿Cuales de esos numeros son divisibles por 7?
+
+```{r}
+y <- c(2:87)  
+y[(y %% 7)== 0]
+```
+
+
+## Ejercicio 4 
+
+Construya dos vectores, el primero con los numeros enteros desde 7 hasta 3, el segundo vector con los
+primeros cinco numeros positivos divisibles por 5.
+• Sea A la condicion de ser par en el primer vector.
+• Sea B la condicion de ser mayor que 10 en el segundo vector.
+• ¿En cual de las 5 posiciones se cumple A y B simultaneamente?
+
+```{r}
+a <- 7:3 
+b <- 1:5*5
+
+A <- a %% 2 == 0
+B <- b > 10
+
+A & B
+```
+
+## Ejercicio 5
+
+Consulte este <link> en el cual hay una anectoda de Gauss niño. Use R para obtener el resultado de la suma solicitada por el profesor del niño Gauss.
+
+```{r}
+sum(c(1:100))
+```
+## Ejercicio 6
+
+Construya un vector con los siguientes elementos: 1, -4, 5, 9, -4. Escriba un procedimiento para extraer
+las posiciones donde est´a el valor minimo en el vector.
+
+```{r}
+V <- c(1,-4,5,9,-4)   
+which.min(V)
+```
+
+## Ejercicio 7 
+
+Calcular 8!
+
+```{r}
+prod((1:8))
+```
+## Ejercicio 8 
+Evaluar la siguiente sumatoria Pi=7 i=3 
+
+
+```{r}
+x<- 3:7
+sum(exp(x))
+
+```
+
+## Ejercicio 9 
+
+Evaluar la siguiente productoria
+
+```{r}
+i =c(1:10)
+prod(log(sqrt(i)))
+
+```
+
+## Ejercicio 10
+Realizar una funcion que permita calcular el area de una corona circular.
+
+```{r}
+
+corona_circular <- function(R,r){
+  resultado  <- pi*((R^2)- (r^2))
+  resultado
+}
+
+corona_circular(8,2)
+
+```
+
+## Ejercicio 11
+
+Construya un vector cualquiera e inviertalo, es decir, que el primer elemento quede de ultimo, el segundo de penultimo y así sucesivamente. Compare su resultado con el de la funcion rev
+
+```{r}
+v <- c(2,7,8,14,29)
+x <- c(v[length(x)],v[length(x)-1],v[length(x)-2],v[length(x)-3],v[length(x)-4])
+rev(v)
+```
+## Ejercicio 12
+
+Calcular lo siguiente sumatorio P100 i=10(i^3 + 4i^2)
+
+```{r}
+suma<-0 
+for (i in 10:100) {
+  ecu<-((i^3) + (4*i^2))
+  suma<-suma+ecu
+  }
+suma
+```
+
+## Ejercicio 13
+
+Calcular lo siguiente sumatoria de i=1 a 25 (2^i/i +3^i/i^2 )
+
+
+```{r}
+x<-0
+for (i in 1:25) {
+  y<-((2^i)/i+(3^i)/(i^2))
+  x<-x+y
+}
+x
+```
+
+## Ejercicio 14
+
+Lea el siguiente archivo
+
+• Calcular el numero de variables del dataset
+
+```{r}
+
+dt<-read.table("C:/PROGRA/Paises.txt",header = TRUE)
+
+length(colnames(dt)) 
+```
+• ¿Cuantos países hay en el dataset?
+
+```{r}
+length(dt$Pais)  
+```
+
+• ¿Cuál es el país con mayor poblacion?
+```{r}
+dt$Pais[which.max(dt$poblacion)] 
+```
+
+• ¿Cuál es el país con alfabetizacion mas baja?
+```{r}
+dt$Pais[which.min(dt$alfabetizacion)] 
+```
+
+## Ejercicio 15
+
+En R hay unas bases de datos inclu´ıdas, una de ellas es la base de datos llamada mtcars. Para conocer las variables que estan en mtcars usted puede escribir en la consola ?mtcars o tambi´en help(mtcars). De la base mtcars obtenga bases de datos que cumplan las siguientes condiciones.
+
+```{r}
+w<-mtcars
+head(w)
+```
+
+• Autos que tengan un rendimiento menor a 18 millas por galon de combustible.
+
+```{r}
+rendi <-w[w$mpg<18,]
+rownames(rendi)
+```
+• Autos que tengan 4 cilindros.
+```{r}
+cilin <-w[w$cyl==4,]
+rownames(cilin) 
+```
+
+• Autos que pesen mas de 2500 libras y tengan transmision manual
+
+```{r}
+peso <-w[w$wt>2.500 & w$am==1, ]
+rownames(peso)
+```
+
+## Ejercicio 16
+
+La ecuacion de tiempo es la diferencia entre el tiempo solar medio y el tiempo solar aparente.
+Si bien esta var´ıa, la forma anal´ıtica de esta ecuacion se muestra a continuaci´on (Usar x como un rango de 0 a 365). Replicar el grafico:
+
+y = 2π · (x − 81)/365
+f(y) = 9.87 · sin(2y) − 7.53 · cos(y) − 1.5 · sin(y)
+
+```{r}
+x<-0:365
+y<-pi*2*(x-81)/365
+funcion<-9.87*sin(2*y)-7.35*cos(y)-1.5*sin(y)
+n<-month.abb
+n<-x/33.27
+m<-month.abb
+
+
+plot(n, funcion, xaxt = "n")
+axis(1, at = seq(round(min(n)), round(max(n)), by = 1), labels =m)
+
+```
